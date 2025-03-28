@@ -1,4 +1,4 @@
-// URL para a API JSON Placeholder para ler e inserir posts
+w// URL para a API JSON Placeholder para ler e inserir posts
 // Essa API é "fake", então o POST simula a inserção de dados, mas não salva de fato no servidor.
 
 // Limite de posts que serão exibidos
