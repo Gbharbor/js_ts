@@ -128,7 +128,7 @@ h1 {
     bottom:0;
     right:0;
     background-color:rgba(255, 255, 255, 0.5);
-    display:none;
+    display:none; /*repare q ele n aparece por estar none, mas vms usar display flex para ele apaerecer no script*/
     transition: all ease .5s;
     justify-content: center;
     align-items: center;
