@@ -1,3 +1,4 @@
+let modalQt = 1;
 // Funções auxiliares para seleção de elementos no DOM
 // "c" para querySelector e "cs" para querySelectorAll
 const c = (el) => document.querySelector(el);
@@ -32,7 +33,7 @@ pizzaJson.map((item, index) => {
 
       // Pega o índice da pizza clicada a partir do atributo data-key
       let key = e.target.closest('.pizza-item').getAttribute('data-key');
-
+      modalQt = 1;
       // Logs para teste e depuração
       console.log('Pizza clicada: ' + key);
       console.log(pizzaJson[key]);
@@ -42,6 +43,15 @@ pizzaJson.map((item, index) => {
       c('.pizzaBig img').src = pizzaJson[key].img;
       c('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
       c('.pizzaInfo--desc').innerHTML = pizzaJson[key].description;
+      c('.pizzaInfo--actualPrice').innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`;
+      c('.pizzaInfo--size.selected').classList.remove('selected');// ele n deixa nada selecionado.
+      cs('.pizzaInfo--size').forEach((size, sizeIndex)=>{
+         if(sizeIndex == 2) {
+            size.classList.add('selected'); //sempre ao abrir vai selecionar a grande automaticamente.
+         }
+         size.querySelector('span').innerHTML = pizzaJson[key].sizes[sizeIndex];
+      });
+      c('.pizzaInfo--qt').innerHTML = modalQt;
 
       // Exibe o modal com animação suave
       c('.pizzaWindowArea').style.opacity = 0;
