@@ -7,6 +7,7 @@ const cs = (el) => document.querySelectorAll(el);
 // Percorre a lista de pizzas (pizzaJson),
 // clona o modelo de item de pizza existente no HTML,
 // preenche os dados de cada pizza e adiciona na tela
+//Listagem das pizzas
 pizzaJson.map((item, index) => {
    // Clona o modelo de item de pizza (elemento dentro de .pizza-item)
    let pizzaItem = c('.models .pizza-item').cloneNode(true);
@@ -51,8 +52,8 @@ pizzaJson.map((item, index) => {
          }
          size.querySelector('span').innerHTML = pizzaJson[key].sizes[sizeIndex];
       });
+      //Quantidde de itens selecionados
       c('.pizzaInfo--qt').innerHTML = modalQt;
-
       // Exibe o modal com animação suave
       c('.pizzaWindowArea').style.opacity = 0;
       c('.pizzaWindowArea').style.display = 'flex';
@@ -65,4 +66,43 @@ pizzaJson.map((item, index) => {
 
    // Adiciona o item de pizza preenchido na área de pizzas do HTML
    c('.pizza-area').append(pizzaItem);
+});
+// Função para fechar o modal
+function closeModal() {
+   const modal = c('.pizzaWindowArea');
+   modal.style.opacity = 0; // Torna o modal invisível (mas ainda na tela)
+   setTimeout(() => {
+      modal.style.display = 'none'; // Após 500ms, remove o modal da tela
+   }, 500);
+}
+
+// Adiciona evento aos botões de cancelar (desktop e mobile)
+cs('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item) => {
+   item.addEventListener('click', closeModal);
+});
+
+// Botão de diminuir quantidade
+c('.pizzaInfo--qtmenos').addEventListener('click', () => {
+   // Garante que a quantidade nunca seja menor que 1
+   if (modalQt > 1) {
+      modalQt--;
+      c('.pizzaInfo--qt').innerHTML = modalQt;
+   }
+});
+
+// Botão de aumentar quantidade
+c('.pizzaInfo--qtmais').addEventListener('click', () => {
+   modalQt++;
+   c('.pizzaInfo--qt').innerHTML = modalQt;
+});
+
+// Seleção de tamanho da pizza
+cs('.pizzaInfo--size').forEach((size, sizeIndex) => {
+   size.addEventListener('click', () => {
+      // Remove seleção anterior
+      c('.pizzaInfo--size.selected').classList.remove('selected');
+      // Adiciona a nova seleção
+      size.classList.add('selected');
+      // Importante: não usar e.target aqui para evitar erros ao clicar em elementos internos (ex: span)
+   });
 });
