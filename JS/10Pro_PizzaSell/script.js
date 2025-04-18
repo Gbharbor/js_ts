@@ -1,4 +1,7 @@
+let cart =[];
 let modalQt = 1;
+let modalkey = 0; //sempre ao abrir o modal vai me dizer qual pizza escolhi
+
 // Funções auxiliares para seleção de elementos no DOM
 // "c" para querySelector e "cs" para querySelectorAll
 const c = (el) => document.querySelector(el);
@@ -35,11 +38,9 @@ pizzaJson.map((item, index) => {
       // Pega o índice da pizza clicada a partir do atributo data-key
       let key = e.target.closest('.pizza-item').getAttribute('data-key');
       modalQt = 1;
+      modalkey = key; // Nos diz qual a pizza
       // Logs para teste e depuração
-      console.log('Pizza clicada: ' + key);
       console.log(pizzaJson[key]);
-      console.log('Clicou na pizza');
-
       // Preenche o modal com os dados da pizza clicada
       c('.pizzaBig img').src = pizzaJson[key].img;
       c('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
@@ -105,4 +106,29 @@ cs('.pizzaInfo--size').forEach((size, sizeIndex) => {
       size.classList.add('selected');
       // Importante: não usar e.target aqui para evitar erros ao clicar em elementos internos (ex: span)
    });
+});
+c('.pizzaInfo--addButton').addEventListener('click', () => {
+   //qual a pizza ?
+   console.log("pizza: ", modalkey);
+   //qual o tam selecionado ?
+   let size = c('.pizzaInfo--size.selected').getAttribute('data-key');
+   console.log("tamanho: ", size);
+   //quantas pizzas ?
+   console.log("quantidade: ",modalQt);
+   //vms criar um identificador com o ID da pizza e o size dela.
+   let identifier = pizzaJson[modalkey].id+'@'+size;
+   let key = cart.findIndex((item)=>item.identifier == identifier); //se tiver o msm identifier, ele junta.
+   if(key > -1) {
+      cart[key].qt +=modalQt;
+   } else {
+      cart.push({
+         identifier,
+         id: pizzaJson[modalkey].id,
+         size,
+         qt:modalQt
+      });
+   }
+
+
+   closeModal();
 });
