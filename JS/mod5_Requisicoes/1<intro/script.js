@@ -1,11 +1,11 @@
-/*
-Diferença entre Síncrono e Assíncrono
+/*Diferença entre Síncrono e Assíncrono
 
 - Síncrono:
   Em execução síncrona, as operações são executadas sequencialmente, uma após a outra. Cada linha de código espera a execução da linha anterior antes de continuar.
   
   Exemplo:
 */
+
 let nome = "gui";
 let sobrenome = "lacerta";
 let nomeCompleto = nome + " " + sobrenome;
