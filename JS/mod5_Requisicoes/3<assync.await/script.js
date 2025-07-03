@@ -3,7 +3,7 @@
 // - A função async permite o uso do await, que faz com que a execução aguarde a finalização de cada etapa antes de continuar.
 
 // Exemplo de GET usando async/await
-async function clicou() {
+async function clicked() {
     try {
         // Armazena a resposta da requisição na variável response e aguarda a finalização com await
         let response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -12,16 +12,16 @@ async function clicou() {
         let json = await response.json();
         
         // Exibe o título do primeiro post
-        alert(`Título do primeiro post: ${json[0].title}`);
+        alert(`First title post: ${json[0].title}`);
         
         // O alert abaixo só será exibido após a execução completa das etapas anteriores, devido ao uso de await
-        alert("CLICOU");
+        alert("clicked");
     } catch (error) {
         // Em caso de erro na requisição, exibe uma mensagem
-        alert("Erro na requisição");
+        alert("Error on request");
     }
 }
-document.querySelector('#botao').addEventListener("click", clicou);
+document.querySelector('#botao').addEventListener('click', clicked);
 
 // Exemplo de POST usando async/await
 async function inserir() {
@@ -34,8 +34,8 @@ async function inserir() {
             },
             // Define o corpo (body) da requisição em JSON, com os dados a serem enviados
             body: JSON.stringify({
-                title: 'Título de teste',
-                body: 'Corpo de teste',
+                title: 'Title test',
+                body: 'Body test',
                 userId: 2 // Define o autor do post
             })
         });
@@ -44,10 +44,17 @@ async function inserir() {
         let json = await response.json();
         
         // Exibe os dados do post criado no console
-        console.log("Post criado:", json);
+        console.log("Post created it:", json);
+        document.getElementById('output').innerHTML += `
+        <div style="margin:10px 0; padding:10px; border:1px solid #ccc; border-radius:5px;">
+            <strong>ID do Post:</strong> ${json.id}<br>
+            <strong>Título:</strong> ${json.title}<br>
+            <strong>Corpo:</strong> ${json.body}<br>
+            <strong>UserID:</strong> ${json.userId}
+        </div>`;
     } catch (error) {
         // Em caso de erro na requisição, exibe uma mensagem
-        console.error("Erro ao enviar dados:", error);
+        console.error("Error while sent data:", error);
     }
 }
 document.querySelector('#inserir').addEventListener("click", inserir);
